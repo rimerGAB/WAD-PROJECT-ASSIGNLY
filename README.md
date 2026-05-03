@@ -1,7 +1,7 @@
 # Staff Tracker
 
 ![Laravel](https://img.shields.io/badge/stack-Laravel-red?style=for-the-badge&logo=laravel)
-![WAD Finals](https://img.shields.io/badge/course-WAD%20Finals-blue?style=for-the-badge)
+![WEB APPLICATION DEVELOPMENT](https://img.shields.io/badge/course-WAD%20Finals-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 A Laravel-based staff management system built for a college WAD finals project. This application demonstrates secure CRUD workflows, role-based access control, and relational Eloquent models.
