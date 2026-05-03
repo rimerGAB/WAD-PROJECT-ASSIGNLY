@@ -1,4 +1,4 @@
-# Staff Tracker
+# Assignly
 
 ![Laravel](https://img.shields.io/badge/stack-Laravel-red?style=for-the-badge&logo=laravel)
 ![WEB APPLICATION DEVELOPMENT](https://img.shields.io/badge/course-WEB%20APPLICATION%20DEVELOPMENT-blue?style=for-the-badge)
@@ -10,12 +10,12 @@ A Laravel-based staff management system built for a college WAD finals project. 
 
 ## 📘 Project Details
 
-- **Project:** Staff Tracker
-- **Course:** Web Application Development (WAD) Finals
-- **Type:** College assignment
-- **Author:** [Your Name]
-- **Peer Review:** classmate acting in an SQA reviewer role
-- **Date:** May 2026
+- **Project:** Assignly
+- **Course:** Web Application Development (WAD)
+- **Type:** project Finals
+- **Author:** Gabaleo, Rimer-Rey A.
+- **Partner:** Carbonel, Jess Marvin S.
+- **Date:** May 3 2026
 
 ---
 
@@ -52,17 +52,17 @@ The application is built with:
 
 | Landing Page | Dashboard |
 | --- | --- |
-| ![Landing Page](screenshots/landing.png) | ![Dashboard](screenshots/dashboard.png) |
+| ![Landing Page](screenshot/landing.jpg) | ![Dashboard](screenshot/dashboard.jpg) |
 
-> Replace the image placeholders above with your actual screenshots.
+
 
 ---
 
 ## 🧠 Entity Relationship Diagram (ERD)
 
-![ER Diagram](screenshots/erd.png)
+![ER Diagram](screenshot/erd.jpg)
 
-> Add the ERD image in `screenshots/erd.png` to show database model relationships clearly.
+
 
 ---
 
@@ -144,11 +144,11 @@ The main Eloquent relationships are:
 
 ---
 
-## 🧪 QA and Review
+## ROLES
 
-This project includes a peer review note to reflect a classmate supporting QA validation.
+- **Rimer-Rey A. Gabaleo** — Developer
 
-- **Classmate** — Acting SQA Reviewer
+- **Jess Marvin Carbonel** — SQA Reviewer
 
 ---
 
