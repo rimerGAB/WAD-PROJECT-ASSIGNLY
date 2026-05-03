@@ -15,8 +15,7 @@ class RegisterController extends Controller
 
     protected $redirectTo = '/home';
 
-    // Remove the constructor entirely - don't need middleware here
-
+   
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -28,7 +27,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        // Get first department or create default
+      
         $department = Department::first();
         if (!$department) {
             $department = Department::create(['name' => 'IT Department']);

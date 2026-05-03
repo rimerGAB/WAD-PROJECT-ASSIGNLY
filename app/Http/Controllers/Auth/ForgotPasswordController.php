@@ -9,5 +9,5 @@ class ForgotPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
     
-    // Remove the constructor
+  
 }

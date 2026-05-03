@@ -11,5 +11,5 @@ class ResetPasswordController extends Controller
 
     protected $redirectTo = '/home';
     
-    // Remove the constructor
+
 }

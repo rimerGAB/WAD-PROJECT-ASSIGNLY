@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Employee::class, 'employee');
+    }
     /**
      * Display a listing of employees.
      */
@@ -32,23 +36,15 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $departments = Department::all();
         return view('employees.create', compact('departments'));
     }
     
     /**
-     * Store new employee (admin only).
+     * Store new employee.
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email',
@@ -73,11 +69,6 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        // Check if user is authorized to view this employee
-        if (!auth()->user()->is_admin && auth()->id() != $employee->emp_id) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $employee->load('department', 'assignments.project');
         return view('employees.show', compact('employee'));
     }
@@ -87,11 +78,6 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        // Only admin or the employee themselves can edit
-        if (!auth()->user()->is_admin && auth()->id() != $employee->emp_id) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $departments = Department::all();
         return view('employees.edit', compact('employee', 'departments'));
     }
@@ -101,11 +87,6 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        // Only admin or the employee themselves can update
-        if (!auth()->user()->is_admin && auth()->id() != $employee->emp_id) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:employees,email,' . $employee->emp_id . ',emp_id',
@@ -146,11 +127,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        // Only admin can delete employees
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         // Prevent admin from deleting themselves
         if ($employee->emp_id == auth()->id()) {
             return redirect()->route('employees.index')

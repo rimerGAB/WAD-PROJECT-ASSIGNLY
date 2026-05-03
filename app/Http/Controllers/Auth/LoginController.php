@@ -11,7 +11,7 @@ class LoginController extends Controller
 
     protected $redirectTo = '/home';
 
-    // Remove the constructor
+  
 
     public function username()
     {

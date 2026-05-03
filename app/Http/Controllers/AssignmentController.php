@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class AssignmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Assignment::class, 'assignment');
+    }
     /**
      * Display a listing of assignments.
      */
@@ -26,14 +30,10 @@ class AssignmentController extends Controller
     }
     
     /**
-     * Show form to create new assignment (admin only).
+     * Show form to create new assignment.
      */
     public function create()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action. Only admin can create assignments.');
-        }
-        
         $employees = Employee::with('department')->get();
         $projects = Project::all();
         
@@ -41,14 +41,10 @@ class AssignmentController extends Controller
     }
     
     /**
-     * Store new assignment (admin only).
+     * Store new assignment.
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action. Only admin can create assignments.');
-        }
-        
         $request->validate([
             'emp_id' => 'required|exists:employees,emp_id',
             'proj_id' => 'required|exists:projects,proj_id',
@@ -78,23 +74,15 @@ class AssignmentController extends Controller
      */
     public function show(Assignment $assignment)
     {
-        if (!auth()->user()->is_admin && $assignment->emp_id != auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $assignment->load(['employee', 'project']);
         return view('assignments.show', compact('assignment'));
     }
     
     /**
-     * Show form to edit assignment (admin only).
+     * Show form to edit assignment.
      */
     public function edit(Assignment $assignment)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action. Only admin can edit assignments.');
-        }
-        
         $employees = Employee::with('department')->get();
         $projects = Project::all();
         
@@ -102,14 +90,10 @@ class AssignmentController extends Controller
     }
     
     /**
-     * Update assignment (admin only).
+     * Update assignment.
      */
     public function update(Request $request, Assignment $assignment)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action. Only admin can update assignments.');
-        }
-        
         $request->validate([
             'emp_id' => 'required|exists:employees,emp_id',
             'proj_id' => 'required|exists:projects,proj_id',
@@ -128,10 +112,6 @@ class AssignmentController extends Controller
      */
     public function destroy(Assignment $assignment)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action. Only admin can delete assignments.');
-        }
-        
         $assignment->delete();
         
         return redirect()->route('assignments.index')

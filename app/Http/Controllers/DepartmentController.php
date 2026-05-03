@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Department::class, 'department');
+    }
     /**
      * Display a listing of departments.
      */
     public function index()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $departments = Department::withCount('employees')->get();
         return view('departments.index', compact('departments'));
     }
@@ -25,10 +25,6 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         return view('departments.create');
     }
     
@@ -37,10 +33,6 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $request->validate([
             'name' => 'required|string|max:255|unique:departments,name'
         ]);
@@ -56,10 +48,6 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $department->load('employees');
         return view('departments.show', compact('department'));
     }
@@ -69,10 +57,6 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         return view('departments.edit', compact('department'));
     }
     
@@ -81,10 +65,6 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $request->validate([
             'name' => 'required|string|max:255|unique:departments,name,' . $department->dept_id . ',dept_id'
         ]);
@@ -100,10 +80,6 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         // Check if department has employees
         $employeeCount = $department->employees()->count();
         if ($employeeCount > 0) {

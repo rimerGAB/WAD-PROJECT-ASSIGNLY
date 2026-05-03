@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class, 'project');
+    }
     /**
      * Display a listing of projects.
      */
@@ -18,26 +22,18 @@ class ProjectController extends Controller
     }
     
     /**
-     * Show form to create new project (admin only).
+     * Show form to create new project.
      */
     public function create()
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         return view('projects.create');
     }
     
     /**
-     * Store new project (admin only).
+     * Store new project.
      */
     public function store(Request $request)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $request->validate([
             'title' => 'required|string|max:255',
             'budget' => 'required|numeric|min:0'
@@ -60,26 +56,18 @@ class ProjectController extends Controller
     }
     
     /**
-     * Show form to edit project (admin only).
+     * Show form to edit project.
      */
     public function edit(Project $project)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         return view('projects.edit', compact('project'));
     }
     
     /**
-     * Update project (admin only).
+     * Update project.
      */
     public function update(Request $request, Project $project)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         $request->validate([
             'title' => 'required|string|max:255',
             'budget' => 'required|numeric|min:0'
@@ -92,14 +80,10 @@ class ProjectController extends Controller
     }
     
     /**
-     * Delete project (admin only).
+     * Delete project.
      */
     public function destroy(Project $project)
     {
-        if (!auth()->user()->is_admin) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         // Check if project has assignments
         $assignmentCount = $project->assignments()->count();
         if ($assignmentCount > 0) {
