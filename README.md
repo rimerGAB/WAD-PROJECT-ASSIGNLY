@@ -1,58 +1,157 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Staff Tracker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Laravel](https://img.shields.io/badge/stack-Laravel-red?style=for-the-badge&logo=laravel)
+![WAD Finals](https://img.shields.io/badge/course-WAD%20Finals-blue?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-## About Laravel
+A Laravel-based staff management system built for a college WAD finals project. This application demonstrates secure CRUD workflows, role-based access control, and relational Eloquent models.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📘 Project Details
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Project:** Staff Tracker
+- **Course:** Web Application Development (WAD) Finals
+- **Type:** College assignment
+- **Author:** [Your Name]
+- **Peer Review:** classmate acting in an SQA reviewer role
+- **Date:** May 2026
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Overview
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Staff Tracker allows authenticated users to manage the following entities:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- Departments
+- Employees
+- Projects
+- Assignments
 
-## Agentic Development
+The application is built with:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- Laravel authentication and middleware
+- Gate and policy authorization
+- Eloquent model relationships
+- Full CRUD functionality across all core entities
+
+---
+
+## ✨ Key Features
+
+- Authentication and protected routes
+- Role-based access control for admin and employee actions
+- Authorization via gates and model policies
+- Complete CRUD operations
+- Eloquent relationships with `belongsTo`, `hasMany`, and `belongsToMany`
+- Clean MVC structure with dedicated controllers, policies, and models
+
+---
+
+## 🖼 Visual Preview
+
+| Landing Page | Dashboard |
+| --- | --- |
+| ![Landing Page](screenshots/landing.png) | ![Dashboard](screenshots/dashboard.png) |
+
+> Replace the image placeholders above with your actual screenshots.
+
+---
+
+## 🧠 Entity Relationship Diagram (ERD)
+
+![ER Diagram](screenshots/erd.png)
+
+> Add the ERD image in `screenshots/erd.png` to show database model relationships clearly.
+
+---
+
+## 📌 What’s Included
+
+- `routes/web.php` — authenticated routes and resources
+- `app/Providers/AuthServiceProvider.php` — gate and policy registration
+- `app/Policies/*Policy.php` — permissions by model
+- `app/Http/Controllers/*Controller.php` — CRUD controllers with authorization checks
+- `app/Models/*.php` — model definitions and relationships
+
+---
+
+## 🛠 Installation
+
+1. Clone the repository.
+2. Install dependencies:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+composer install
+npm install
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+3. Copy environment file:
 
-## Contributing
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Generate application key:
 
-## Code of Conduct
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Run database migrations:
 
-## Security Vulnerabilities
+```bash
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Start the application:
 
-## License
+```bash
+php artisan serve
+npm run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## ▶️ Usage
+
+- Visit the landing page as a guest.
+- Register or log in to access the dashboard.
+- Manage departments, employees, projects, and assignments.
+- Verify role-based access control and ownership restrictions.
+
+---
+
+## 🧩 Authorization Flow
+
+Authorization is implemented using:
+
+- `Gate::define('admin-only', ...)` in `app/Providers/AuthServiceProvider.php`
+- `authorizeResource()` in controllers
+- policy methods in `app/Policies`
+
+---
+
+## 🔗 Model Relationships
+
+The main Eloquent relationships are:
+
+- `Employee` → `Department` (`belongsTo`)
+- `Employee` → `Project` (`belongsToMany` via assignments)
+- `Project` → `Employee` (`belongsToMany` via assignments)
+- `Department` → `Employee` (`hasMany`)
+- `Assignment` → `Employee` and `Project` (`belongsTo`)
+
+---
+
+## 🧪 QA and Review
+
+This project includes a peer review note to reflect a classmate supporting QA validation.
+
+- **Classmate** — Acting SQA Reviewer
+
+---
+
+## 📄 License
+
+MIT License
